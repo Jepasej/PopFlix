@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="2Application\DTOs\" />
-    <Folder Include="4FrameworksAndDrivers\Endpoints\" />
   </ItemGroup>
 
 </Project>
