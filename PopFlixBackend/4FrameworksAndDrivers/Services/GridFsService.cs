@@ -24,7 +24,6 @@ namespace PopFlixBackend._4FrameworksAndDrivers.Services
             });
         }
 
-        //SKAL MÅSKE IKKE BRUGES - SKAL VI KUNNE UPLOADE ELLER KUN DOWNLOADE? 
         //Upload a stream to GridFS with optional metadata; returns the file ObjectId
         public Task<ObjectId> UploadAsync(Stream stream, string filename, BsonDocument metadata) =>
             _bucket.UploadFromStreamAsync(filename, stream, new GridFSUploadOptions
