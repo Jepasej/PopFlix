@@ -1,5 +1,7 @@
-
+using MongoDB.Driver;
+using PopFlixBackend._4FrameworksAndDrivers.Services;
 using PopFlixBackend._4FrameworksAndDrivers.Endpoints;
+using PopFlixBackend._3InterfaceAdapters.RepositoryImplementations;
 
 namespace PopFlixBackend
 {
