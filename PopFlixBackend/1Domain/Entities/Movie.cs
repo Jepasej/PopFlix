@@ -1,4 +1,7 @@
-﻿namespace PopFlixBackend._1Domain.Entities
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace PopFlixBackend._1Domain.Entities
 {
     /// <summary>
     /// Represents a movie, including its associated metadata such as title, release year, and genre.
@@ -8,5 +11,12 @@
     /// recommendation systems.</remarks>
     public class Movie
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
+
+        public string Title { get; set; } = string.Empty;
+        public string Genre { get; set; } = string.Empty;
+        public int Year { get; set; }
     }
 }

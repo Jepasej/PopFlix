@@ -1,4 +1,6 @@
-﻿namespace PopFlixBackend._2Application.Interfaces
+﻿using MongoDB.Bson;
+
+namespace PopFlixBackend._2Application.Interfaces
 {
     /// <summary>
     /// Defines a contract for accessing and managing movie data.
@@ -8,5 +10,8 @@
     /// with movie data without concerning themselves with the underlying storage mechanism.</remarks>
     public interface IMovieRepository
     {
+        
+        Task<string> CreateAsync(ObjectId gridId, string title, string contentType, long length);
+        Task<List<BsonDocument>> GetAllAsync(); // list all movie documents
     }
 }
