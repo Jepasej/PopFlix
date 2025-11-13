@@ -58,17 +58,16 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
         }
 
         //Fetch all movie metadata documents
-        public async Task<List<BsonDocument>> GetAllAsync()
+       public async Task<List<Movie>> GetAllAsync()
         {
             // The Movie entity is used for filtering and the return type
             return await _movies.Find(_ => true).ToListAsync();
         }
-
         
 
-        public Task Add(Movie movie)
+        public async Task Add(Movie movie)
         {
-            throw new NotImplementedException();
+            await _movies.InsertOneAsync(movie);
         }
     }
 }

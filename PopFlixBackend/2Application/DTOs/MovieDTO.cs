@@ -16,9 +16,9 @@ namespace PopFlixBackend._2Application.DTOs
         public MovieDTO(Movie movie)
         {
             Id = movie.Id;
-            Title = movie.Title;
-            Year = movie.Year;
-            Genre = movie.Genre;
+            Title = movie.title;
+            Year = movie.year;
+            Genre = movie.genre;
         }
     }
 }

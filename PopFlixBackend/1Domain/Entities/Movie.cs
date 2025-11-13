@@ -12,6 +12,16 @@ namespace PopFlixBackend._1Domain.Entities
     /// recommendation systems.</remarks>
     public class Movie
     {
+
+        public Movie() {}
+
+        public Movie(MovieDTO movieDTO)
+        {
+            Id = movieDTO.Id;
+            title = movieDTO.Title;
+            year = movieDTO.Year;
+            genre = movieDTO.Genre;
+        }
         // Primary Key for the Movies collection
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
