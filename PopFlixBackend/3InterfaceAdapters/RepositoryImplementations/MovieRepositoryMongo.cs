@@ -28,7 +28,7 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
             var movie = new Movie
             {
                 // Note: Id is left null, the MongoDB driver will assign the BsonObjectId and convert it to string
-                gridId = gridId.ToString(),       // Link to GridFS file
+                gridId = gridId.ToString(),           // Link to GridFS file
                 title = title,                        // Human readable title
                 contentType = contentType,            // e.g. "video/mp4"
                 lengthBytes = length,                 // File size in bytes
