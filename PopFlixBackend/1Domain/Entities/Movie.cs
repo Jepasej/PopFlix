@@ -18,15 +18,17 @@ namespace PopFlixBackend._1Domain.Entities
 
         // Link to the actual video file stored in MongoDB GridFS (files collection)
         [BsonRepresentation(BsonType.ObjectId)]
-        public string GridFileId { get; set; } = string.Empty;
+        public string? gridId { get; set; } = string.Empty;
 
-        public string Title { get; set; } = string.Empty;
-        public string ContentType { get; set; } = string.Empty;
-        public long LengthBytes { get; set; }
-        public DateTime UploadedAt { get; set; }
+        public string title { get; set; } = string.Empty;
+        public string contentType { get; set; } = string.Empty;
+        public long lengthBytes { get; set; }
+        public DateTime uploadedAt { get; set; }
 
         // Keeping these from your original entity, assuming they are optional/added later
-        public string Genre { get; set; } = string.Empty;
-        public int Year { get; set; }
+        public string genre { get; set; } = string.Empty;
+        public int year { get; set; }
+
+
     }
 }

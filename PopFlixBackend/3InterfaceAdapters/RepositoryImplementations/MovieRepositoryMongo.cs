@@ -28,13 +28,13 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
             var movie = new Movie
             {
                 // Note: Id is left null, the MongoDB driver will assign the BsonObjectId and convert it to string
-                GridFileId = gridId.ToString(),       // Link to GridFS file
-                Title = title,                        // Human readable title
-                ContentType = contentType,            // e.g. "video/mp4"
-                LengthBytes = length,                 // File size in bytes
-                UploadedAt = DateTime.UtcNow,         // Upload timestamp (UTC)
-                Genre = "Uncategorized",              // Default values for new fields
-                Year = DateTime.UtcNow.Year           // Default values for new fields
+                gridId = gridId.ToString(),       // Link to GridFS file
+                title = title,                        // Human readable title
+                contentType = contentType,            // e.g. "video/mp4"
+                lengthBytes = length,                 // File size in bytes
+                uploadedAt = DateTime.UtcNow,         // Upload timestamp (UTC)
+                genre = "Uncategorized",              // Default values for new fields
+                year = DateTime.UtcNow.Year           // Default values for new fields
             };
 
             await _movies.InsertOneAsync(movie);
