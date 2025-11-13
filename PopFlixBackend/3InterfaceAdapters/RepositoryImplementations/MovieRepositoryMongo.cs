@@ -1,40 +1,46 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using PopFlixBackend._1Domain.Entities;
+using PopFlixBackend._2Application.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
 {
     /// <summary>
-    /// Provides functionality to manage and query movie data stored in a MongoDB database.
+    /// Repository for storing minimal movie metadata in MongoDB.
     /// </summary>
-    /// <remarks>This repository serves as an abstraction layer for interacting with a MongoDB collection
-    /// containing movie data. It is designed to encapsulate database operations, making it easier to manage and query
-    /// movie records.</remarks>
-    public class MovieRepositoryMongo
+    public class MovieRepositoryMongo : IMovieRepository
     {
-        //Reference to the MongoDB collection for movies
-        private readonly IMongoCollection<BsonDocument> _collection;
+        // Reference to the "movies" collection (holds metadata, not the GridFS chunks/files)
+        private readonly IMongoCollection<BsonDocument> _movies;
 
-        //Constructor that gets reference to the "movies" collection 
+        // Resolve the "movies" collection from the provided database
         public MovieRepositoryMongo(IMongoDatabase db)
         {
-            _collection = db.GetCollection<BsonDocument>("movies");
+            _movies = db.GetCollection<BsonDocument>("movies");
         }
 
-        // Creates a new movie document in the collection and returns its ID as a string
+        // Insert  metadata and return the created document id as string
         public async Task<string> CreateAsync(ObjectId gridId, string title, string contentType, long length)
         {
-            //Build metadata document for the movie
-            var document = new BsonDocument
+            var doc = new BsonDocument
             {
-                { "gridId", gridId }, // Reference to the GridFS file
-                { "title", title },
-                { "contentType", contentType }, //type of the video file
-                { "lengthBytes", length },
-                { "uploadedAt", DateTime.UtcNow } // Timestamp of upload
+                { "gridId", gridId },             // link to GridFS file (_id from videos.files)
+                { "title", title },               // human readable title
+                { "contentType", contentType },   // e.g. "video/mp4"
+                { "lengthBytes", length },        // file size in bytes
+                { "uploadedAt", DateTime.UtcNow } // upload timestamp (UTC)
             };
-            //Insert the document into the collection in MongoDB and return the generated ID
-            await _collection.InsertOneAsync(document); 
-            return document["_id"].ToString();
+
+            await _movies.InsertOneAsync(doc);
+            return doc["_id"].ToString();
+        }
+
+        //Fetch all movie metadata documents
+        public async Task<List<BsonDocument>> GetAllAsync()
+        {
+            return await _movies.Find(FilterDefinition<BsonDocument>.Empty).ToListAsync();
+            // alternative: return await _movies.Find(_ => true).ToListAsync();
         }
     }
 }
