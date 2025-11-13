@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using PopFlixBackend._1Domain.Entities;
 
 namespace PopFlixBackend._2Application.Interfaces
 {
@@ -10,8 +11,10 @@ namespace PopFlixBackend._2Application.Interfaces
     /// with movie data without concerning themselves with the underlying storage mechanism.</remarks>
     public interface IMovieRepository
     {
-        
-        Task<string> CreateAsync(ObjectId gridId, string title, string contentType, long length);
-        Task<List<BsonDocument>> GetAllAsync(); // list all movie documents
+        // 1. Updated: Returns the full Movie object, which contains the string Id
+        Task<Movie> CreateAsync(ObjectId gridId, string title, string contentType, long length);
+
+        // 2. Updated: Returns a List of strongly-typed Movie objects
+        Task<List<Movie>> GetAllAsync();
     }
 }

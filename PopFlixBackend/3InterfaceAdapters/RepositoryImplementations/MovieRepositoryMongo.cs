@@ -11,36 +11,43 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
     /// </summary>
     public class MovieRepositoryMongo : IMovieRepository
     {
-        // Reference to the "movies" collection (holds metadata, not the GridFS chunks/files)
-        private readonly IMongoCollection<BsonDocument> _movies;
+        // CHANGE 1: Reference to the "movies" collection, now strongly typed to Movie
+        private readonly IMongoCollection<Movie> _movies;
 
-        // Resolve the "movies" collection from the provided database
+        // CHANGE 2: Update constructor to resolve collection using the Movie type
         public MovieRepositoryMongo(IMongoDatabase db)
         {
-            _movies = db.GetCollection<BsonDocument>("movies");
+            _movies = db.GetCollection<Movie>("movies");
         }
 
-        // Insert  metadata and return the created document id as string
-        public async Task<string> CreateAsync(ObjectId gridId, string title, string contentType, long length)
+        /// <summary>
+        /// Inserts movie metadata into the database and returns the created Movie object.
+        /// </summary>
+        public async Task<Movie> CreateAsync(ObjectId gridId, string title, string contentType, long length)
         {
-            var doc = new BsonDocument
+            var movie = new Movie
             {
-                { "gridId", gridId },             // link to GridFS file (_id from videos.files)
-                { "title", title },               // human readable title
-                { "contentType", contentType },   // e.g. "video/mp4"
-                { "lengthBytes", length },        // file size in bytes
-                { "uploadedAt", DateTime.UtcNow } // upload timestamp (UTC)
+                // Note: Id is left null, the MongoDB driver will assign the BsonObjectId and convert it to string
+                GridFileId = gridId.ToString(),       // Link to GridFS file
+                Title = title,                        // Human readable title
+                ContentType = contentType,            // e.g. "video/mp4"
+                LengthBytes = length,                 // File size in bytes
+                UploadedAt = DateTime.UtcNow,         // Upload timestamp (UTC)
+                Genre = "Uncategorized",              // Default values for new fields
+                Year = DateTime.UtcNow.Year           // Default values for new fields
             };
 
-            await _movies.InsertOneAsync(doc);
-            return doc["_id"].ToString();
+            await _movies.InsertOneAsync(movie);
+
+            // The Id property is automatically set by the InsertOneAsync operation
+            return movie;
         }
 
-        //Fetch all movie metadata documents
-        public async Task<List<BsonDocument>> GetAllAsync()
+        // CHANGE 3: Fetch all movie documents, the driver automatically deserializes them to Movie objects
+        public async Task<List<Movie>> GetAllAsync()
         {
-            return await _movies.Find(FilterDefinition<BsonDocument>.Empty).ToListAsync();
-            // alternative: return await _movies.Find(_ => true).ToListAsync();
+            // The Movie entity is used for filtering and the return type
+            return await _movies.Find(_ => true).ToListAsync();
         }
     }
 }
