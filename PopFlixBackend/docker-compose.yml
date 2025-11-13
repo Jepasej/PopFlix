@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # MongoDB Database Service
+  mongo:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - "27017:27017" # Exposes MongoDB on the host machine
+    volumes:
+      - mongo-data:/data/db # Persists database data
+
+  # C# Minimal API Service
+  api:
+    container_name: movie_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Exposes the API on the host machine
+    environment:
+      # This connection string points to the 'mongo' service name
+      - ConnectionStrings__MongoDb=mongodb://mongo:27017
+      # Sets the URL for the .NET app to listen on inside the container
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mongo # Ensures Mongo starts before the API
+
+volumes:
+  mongo-data: # Defines the persistent volume for MongoDB

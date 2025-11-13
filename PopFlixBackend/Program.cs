@@ -19,7 +19,8 @@ namespace PopFlixBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = "mongodb://localhost:27017";
+            var connectionString = builder.Configuration.GetConnectionString("MongoDb")
+                                    ?? "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("PopFlixDb");
 
@@ -53,8 +54,7 @@ namespace PopFlixBackend
                 var movies = await repo.GetAllAsync();
                 return Results.Ok(movies);
             });
-
-
+            
             app.MapPost("/movies/import", async ([FromForm] IFormFile file, [FromForm] string? title, GridFsService grid, IMovieRepository repo) =>
             {
                 if (file is null) return Results.BadRequest("file missing");

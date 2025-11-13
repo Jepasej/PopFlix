@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using PopFlixBackend._1Domain.Entities;
 
 using PopFlixBackend._1Domain.Entities;
 

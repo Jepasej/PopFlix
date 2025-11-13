@@ -12,24 +12,24 @@ namespace PopFlixBackend._1Domain.Entities
     /// recommendation systems.</remarks>
     public class Movie
     {
-
-        public Movie()
-        {
-        }
-
-        public Movie(MovieDTO movieDTO)
-        {
-            this.Id = movieDTO.Id;
-            this.Title = movieDTO.Title;
-            this.Year = movieDTO.Year;
-            this.Genre = movieDTO.Genre;
-        }
+        // Primary Key for the Movies collection
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-        public string Title { get; set; } = string.Empty;
-        public string Genre { get; set; } = string.Empty;
-        public int Year { get; set; }
+        // Link to the actual video file stored in MongoDB GridFS (files collection)
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? gridId { get; set; } = string.Empty;
+
+        public string title { get; set; } = string.Empty;
+        public string contentType { get; set; } = string.Empty;
+        public long lengthBytes { get; set; }
+        public DateTime uploadedAt { get; set; }
+
+        // Keeping these from your original entity, assuming they are optional/added later
+        public string genre { get; set; } = string.Empty;
+        public int year { get; set; }
+
+
     }
 }
