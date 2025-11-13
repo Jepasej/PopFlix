@@ -1,4 +1,6 @@
-﻿namespace PopFlixBackend._2Application.Interfaces
+﻿using PopFlixBackend._1Domain.Entities;
+
+namespace PopFlixBackend._2Application.Interfaces
 {
     /// <summary>
     /// Defines a contract for accessing and managing movie data.
@@ -8,5 +10,8 @@
     /// with movie data without concerning themselves with the underlying storage mechanism.</remarks>
     public interface IMovieRepository
     {
+        public Task add(Movie movie);
+        public Task<Movie?> Get(int movieId);
+        Task<List<Movie>> GetAll();
     }
 }

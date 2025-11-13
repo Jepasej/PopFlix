@@ -8,5 +8,23 @@
     /// recommendation systems.</remarks>
     public class Movie
     {
+        public int MovieId { get; set; }
+        public string Title { get; set; }
+        public string Director { get; set; }
+        public int ReleaseYear { get; set; }
+        public string Genre { get; set; }   
+
+        public Movie()
+        {
+        }
+
+        public Movie(int movieId, string title, string director, int releaseYear, string genre)
+        {
+            MovieId = movieId;
+            Title = title;
+            Director = director;
+            ReleaseYear = releaseYear;
+            Genre = genre;
+        }
     }
 }
