@@ -43,8 +43,7 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
             return movie;
         }
 
-        // CHANGE 3: Fetch all movie documents, the driver automatically deserializes them to Movie objects
-        public async Task<List<Movie>> GetAllAsync();
+        
         public async Task<Movie?> Get(string Id)
         {
             return await _movies.Find<Movie>(m => m.Id == Id)
