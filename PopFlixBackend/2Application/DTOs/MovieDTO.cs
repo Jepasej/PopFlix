@@ -4,10 +4,9 @@ namespace PopFlixBackend._2Application.DTOs
 {
     public class MovieDTO
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
         public string Title { get; set; }
-        public string Director { get; set; }
-        public int ReleaseYear { get; set; }
+        public int Year { get; set; }
         public string Genre { get; set; }
 
         public MovieDTO()
@@ -16,10 +15,9 @@ namespace PopFlixBackend._2Application.DTOs
 
         public MovieDTO(Movie movie)
         {
-            Id = movie.MovieId;
+            Id = movie.Id;
             Title = movie.Title;
-            Director = movie.Director;
-            ReleaseYear = movie.ReleaseYear;
+            Year = movie.Year;
             Genre = movie.Genre;
         }
     }

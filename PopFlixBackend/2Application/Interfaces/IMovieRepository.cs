@@ -12,11 +12,12 @@ namespace PopFlixBackend._2Application.Interfaces
     /// with movie data without concerning themselves with the underlying storage mechanism.</remarks>
     public interface IMovieRepository
     {
-        
+
         Task<string> CreateAsync(ObjectId gridId, string title, string contentType, long length);
         Task<List<BsonDocument>> GetAllAsync(); // list all movie documents
-        public Task add(Movie movie);
-        public Task<Movie?> Get(int movieId);
+
+        public Task Add(Movie movie);
+        public Task<Movie?> Get(string movieId);
         Task<List<Movie>> GetAll();
     }
 }

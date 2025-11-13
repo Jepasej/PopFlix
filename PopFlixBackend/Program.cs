@@ -8,6 +8,7 @@ using PopFlixBackend._3InterfaceAdapters.RepositoryImplementations;
 using PopFlixBackend._4FrameworksAndDrivers.Endpoints;
 using PopFlixBackend._4FrameworksAndDrivers.Services;
 using Microsoft.AspNetCore.Antiforgery;
+using PopFlixBackend._2Application.DTOs;
 
 
 namespace PopFlixBackend
@@ -44,6 +45,7 @@ namespace PopFlixBackend
                     options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
                 });
             }
+            app.UseAuthorization();
 
             // Endpoint to get all movies
             app.MapGet("/movies", async (IMovieRepository repo) =>
@@ -52,28 +54,6 @@ namespace PopFlixBackend
                 return Results.Ok(movies);
             });
 
-            // Endpoint to import a movie file
-            //app.MapPost("/movies/import", async (HttpRequest req, GridFsService grid, IMovieRepository repo) =>
-            //{
-            //    // Read multipart form and get the file
-            //    var form = await req.ReadFormAsync();
-            //    var file = form.Files.GetFile("file");
-            //    if (file is null) return Results.BadRequest("file missing");
-
-            //    // Title is optional; fallback to filename
-            //    var title = string.IsNullOrWhiteSpace(form["title"]) ? file.FileName : form["title"].ToString();
-
-            //    // Upload to GridFS with minimal metadata
-            //    await using var stream = file.OpenReadStream();
-            //    var meta = new MongoDB.Bson.BsonDocument { { "contentType", file.ContentType }, { "title", title } };
-            //    var gridId = await grid.UploadAsync(stream, file.FileName, meta);
-
-            //    // Store minimal metadata in 'Movies' via repository
-            //    var movieId = await repo.CreateAsync(gridId, title, file.ContentType, file.Length);
-
-            //    // Return identifiers
-            //    return Results.Ok(new { movieId, gridId = gridId.ToString() });
-            //});
 
             app.MapPost("/movies/import", async ([FromForm] IFormFile file, [FromForm] string? title, GridFsService grid, IMovieRepository repo) =>
             {
@@ -92,18 +72,12 @@ namespace PopFlixBackend
 
                 return Results.Ok(new { movieId, gridId = gridId.ToString() });
             })
-            //.Produces(StatusCodes.Status200OK);
-               
-                .DisableAntiforgery();
+            .DisableAntiforgery();
 
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
-            app.MapWeatherEndpoints();
-
-            //app.MapMovieEndpoints();
+            app.MapMovieEndpoints();
 
             app.Run();
         }

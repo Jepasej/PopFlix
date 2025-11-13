@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using PopFlixBackend._2Application.DTOs;
 
 namespace PopFlixBackend._1Domain.Entities
 {
@@ -11,23 +12,17 @@ namespace PopFlixBackend._1Domain.Entities
     /// recommendation systems.</remarks>
     public class Movie
     {
-        public int MovieId { get; set; }
-        public string Title { get; set; }
-        public string Director { get; set; }
-        public int ReleaseYear { get; set; }
-        public string Genre { get; set; }   
 
         public Movie()
         {
         }
 
-        public Movie(int movieId, string title, string director, int releaseYear, string genre)
+        public Movie(MovieDTO movieDTO)
         {
-            MovieId = movieId;
-            Title = title;
-            Director = director;
-            ReleaseYear = releaseYear;
-            Genre = genre;
+            this.Id = movieDTO.Id;
+            this.Title = movieDTO.Title;
+            this.Year = movieDTO.Year;
+            this.Genre = movieDTO.Genre;
         }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
