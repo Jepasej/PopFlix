@@ -52,30 +52,7 @@ namespace PopFlixBackend
                 var movies = await repo.GetAllAsync();
                 return Results.Ok(movies);
             });
-
-            // Endpoint to import a movie file
-            //app.MapPost("/movies/import", async (HttpRequest req, GridFsService grid, IMovieRepository repo) =>
-            //{
-            //    // Read multipart form and get the file
-            //    var form = await req.ReadFormAsync();
-            //    var file = form.Files.GetFile("file");
-            //    if (file is null) return Results.BadRequest("file missing");
-
-            //    // Title is optional; fallback to filename
-            //    var title = string.IsNullOrWhiteSpace(form["title"]) ? file.FileName : form["title"].ToString();
-
-            //    // Upload to GridFS with minimal metadata
-            //    await using var stream = file.OpenReadStream();
-            //    var meta = new MongoDB.Bson.BsonDocument { { "contentType", file.ContentType }, { "title", title } };
-            //    var gridId = await grid.UploadAsync(stream, file.FileName, meta);
-
-            //    // Store minimal metadata in 'Movies' via repository
-            //    var movieId = await repo.CreateAsync(gridId, title, file.ContentType, file.Length);
-
-            //    // Return identifiers
-            //    return Results.Ok(new { movieId, gridId = gridId.ToString() });
-            //});
-
+            
             app.MapPost("/movies/import", async ([FromForm] IFormFile file, [FromForm] string? title, GridFsService grid, IMovieRepository repo) =>
             {
                 if (file is null) return Results.BadRequest("file missing");
@@ -93,7 +70,7 @@ namespace PopFlixBackend
 
                 return Results.Ok(new { movieId, gridId = gridId.ToString() });
             })
-            //.Produces(StatusCodes.Status200OK);
+            
                
                 .DisableAntiforgery();
 
@@ -101,8 +78,7 @@ namespace PopFlixBackend
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            app.MapWeatherEndpoints();
+                       
 
             //app.MapMovieEndpoints();
 
