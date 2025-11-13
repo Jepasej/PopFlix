@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Movie Vault</title>
+    <link href="SimpleStyle.css" rel="stylesheet" />
+    <script>
+        // Configuration directly in the HTML
+        const config = {
+            apiBaseUrl: 'http://localhost:5091',
+            endpoints: {
+                movieList: '/api/movieinfo/list',
+                movieGet: '/api/movie/get/'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // First, discover available endpoints
+            discoverEndpoints()
+                .then(() => loadMovies())
+                .catch(error => console.error('Initialization failed:', error));
+
+            async function discoverEndpoints() {
+                try {
+                    // Try to get API documentation or endpoint list
+                    const response = await fetch(config.apiBaseUrl + '/api', {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const apiInfo = await response.json();
+                        // Merge discovered endpoints with defaults
+                        config.endpoints = { ...config.endpoints, ...apiInfo.endpoints };
+                    }
+                    // If discovery fails, we'll use the default endpoints
+                } catch (error) {
+                    console.warn('Could not discover endpoints, using defaults');
+                    // Default endpoints are already set in config
+                }
+            }
+
+            async function loadMovies() {
+                try {
+                    const response = await fetch(config.apiBaseUrl + config.endpoints.movieList);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    populateMovieList(data);
+                } catch (error) {
+                    console.error('Unable to get movies:', error);
+                    showError('Failed to load movies. Please check the API connection.');
+                }
+            }
+
+            function populateMovieList(data) {
+                const select = document.getElementById('movielist');
+                select.innerHTML = '';
+
+                const movies = data.data || data.movies || data || [];
+                
+                if (movies.length === 0) {
+                    const opt = document.createElement('option');
+                    opt.textContent = 'No movies available';
+                    select.appendChild(opt);
+                    return;
+                }
+
+                movies.forEach((movie, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = index;
+                    opt.textContent = movie.title || movie.name || `Movie ${index + 1}`;
+                    opt.dataset.movieId = movie.id || movie.title || index;
+                    select.appendChild(opt);
+                });
+            }
+
+            document.getElementById("btnWatchMovie").onclick = (event) => {
+                const selectList = document.getElementById("movielist");
+                const selectedOption = selectList.options[selectList.selectedIndex];
+                
+                if (!selectedOption || selectedOption.disabled) return;
+
+                const movieIdentifier = selectedOption.dataset.movieId || selectedOption.text;
+                const videoUrl = config.apiBaseUrl + config.endpoints.movieGet + encodeURIComponent(movieIdentifier);
+                
+                const videoPlayer = document.getElementById("videoPlayer");
+                videoPlayer.src = videoUrl;
+                videoPlayer.load();
+            }
+
+            function showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'color: red; padding: 10px; margin: 10px 0; border: 1px solid red;';
+                errorDiv.textContent = message;
+                document.querySelector('.container').prepend(errorDiv);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="itemSpan2">
+            <H1>The video vault</H1>
+        </div>
+        <div>
+            <select id="movielist">
+                <option>Loading movies...</option>
+            </select>
+        </div>
+        <div>
+            <button class="button button1" id="btnWatchMovie">Watch movie</button>
+        </div>
+        <div class="itemSpan2">
+            <video id="videoPlayer" width="650" controls>
+                <source type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</body>
+</html>
