@@ -24,13 +24,7 @@ namespace PopFlixBackend._4FrameworksAndDrivers.Endpoints
             })
             .WithName("GetMovieById");
 
-            appMovie.MapPost("/movie", async (MovieDTO movieDto, IMovieRepository movieRepository) =>
-            {
-                await movieRepository.Add(new Movie(movieDto));
-
-                return Results.Created();
-            })
-            .WithName("Post Movie");
+            
 
             // NEW ENDPOINT: Stream a movie's video content from GridFS
             appMovie.MapGet("/movie/{Id}/stream", async (string Id, IMovieRepository movieRepository, GridFsService grid) =>

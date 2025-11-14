@@ -57,12 +57,8 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
         {
             // The Movie entity is used for filtering and the return type
             return await _movies.Find(_ => true).ToListAsync();
-        }
-        
+        }      
 
-        public async Task Add(Movie movie)
-        {
-            await _movies.InsertOneAsync(movie);
-        }
+        
     }
 }

@@ -17,7 +17,6 @@ namespace PopFlixBackend._2Application.Interfaces
         Task<Movie> CreateAsync(ObjectId gridId, string title, string contentType, long length);
         Task<List<Movie>> GetAllAsync(); // list all movie documents
 
-        public Task Add(Movie movie);
         public Task<Movie?> Get(string Id);
         
     }
