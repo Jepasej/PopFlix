@@ -13,7 +13,7 @@ namespace PopFlixBackend._4FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapMovieEndpoints(this IEndpointRouteBuilder appMovie)
         {
-            appMovie.MapGet("/movie/{Id}", async (string Id, IMovieRepository movieRepository) =>
+            appMovie.MapGet("/movies/{Id}", async (string Id, IMovieRepository movieRepository) =>
             {
                 var movie = await movieRepository.Get(Id);
                 if (movie == null)
@@ -27,7 +27,7 @@ namespace PopFlixBackend._4FrameworksAndDrivers.Endpoints
             
 
             // NEW ENDPOINT: Stream a movie's video content from GridFS
-            appMovie.MapGet("/movie/{Id}/stream", async (string Id, IMovieRepository movieRepository, GridFsService grid) =>
+            appMovie.MapGet("/movies/{Id}/stream", async (string Id, IMovieRepository movieRepository, GridFsService grid) =>
             {
                 var movie = await movieRepository.Get(Id);
 
