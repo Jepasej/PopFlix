@@ -50,12 +50,7 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
                             .SortByDescending(m => m.Id)
                             .Limit(1)
                             .FirstOrDefaultAsync();
-        }
-
-        public async Task<List<Movie>> GetAll()
-        {
-            return await _movies.Find(movie => true).ToListAsync();
-        }
+        }        
 
         //Fetch all movie metadata documents
        public async Task<List<Movie>> GetAllAsync()
