@@ -19,8 +19,8 @@ namespace PopFlixBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("MongoDb")
-                                    ?? "mongodb://localhost:27017";
+            var connectionString = "mongodb://localhost:27017"; //builder.Configuration.GetConnectionString("MongoDb")
+                                    //?? "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("PopFlixDb");
 
