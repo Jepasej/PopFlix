@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -18,6 +19,19 @@ namespace PopFlixBackend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Increase max request body size for file uploads
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.Limits.MaxRequestBodySize = 1024L * 1024L * 1024L; // 1 GB
+            });
+
+            // Increase multipart/form-data upload limit (IFormFile)
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 1024L * 1024L * 1024L; // 1 GB
+            });
+
 
             var connectionString = builder.Configuration.GetConnectionString("MongoDb")
                                     ?? "mongodb://localhost:27017";
