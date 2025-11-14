@@ -58,21 +58,21 @@ Lav en POST request: http://localhost:8080/movies/import
 - Gentag processen for alle ønskede filer.
 
 GET: Alle film med metadata:
-Lav en GET request: http://localhost:8080/movies → tryk SEND 
-Returnerer en liste med alle film og deres meteadata, inkl. deres id’er.
-Kopier feltet "Id" fra én af de uploadede film (skal bruges i næste trin) 
+- Lav en GET request: http://localhost:8080/movies → tryk SEND 
+- Returnerer en liste med alle film og deres meteadata, inkl. deres id’er.
+- Kopier feltet "Id" fra én af de uploadede film (skal bruges i næste trin) 
 
 GET: Enkelt filmmetadata: 
-Lav en GET request: http://localhost:8080/movies/{id} → tryk SEND
-Returnerer metadata på den film hvis id du har indsat
+- Lav en GET request: http://localhost:8080/movies/{id} → tryk SEND
+- Returnerer metadata på den film hvis id du har indsat
 
 GET: Stream film: 
-Lav en GET request: http://localhost:8080/movies/{{id}}/stream → tryk SEND
-Du bør nu kunne streame den valgte video. 
+- Lav en GET request: http://localhost:8080/movies/{{id}}/stream → tryk SEND
+- Du bør nu kunne streame den valgte video. 
 
 ## API-dokumentation:
-Swagger/OpenAPI dokumentation findes i projektets rodmappe som: Swagger doc
-Dokumentationen kan åbnes i enhver Swagger viewer og vises automatisk, når API’et kører.
+- Swagger/OpenAPI dokumentation findes i projektets rodmappe som: Swagger doc
+- Dokumentationen kan åbnes i enhver Swagger viewer og vises automatisk, når API’et kører.
 
 ## Teknologier anvendt:
 - .NET 9 WebAPI
