@@ -62,31 +62,7 @@ namespace PopFlixBackend
             }
             app.UseAuthorization();
 
-            // Endpoint to get all movies
-            app.MapGet("/movies", async (IMovieRepository repo) =>
-            {
-                var movies = await repo.GetAllAsync();
-                return Results.Ok(movies);
-            });
             
-            app.MapPost("/movies/import", async ([FromForm] IFormFile file, [FromForm] string? title, GridFsService grid, IMovieRepository repo) =>
-            {
-                if (file is null) return Results.BadRequest("file missing");
-
-                var resolvedTitle = string.IsNullOrWhiteSpace(title) ? file.FileName : title;
-
-                await using var stream = file.OpenReadStream();
-                var meta = new BsonDocument {
-                { "contentType", file.ContentType },
-                { "title", resolvedTitle }
-            };
-
-                var gridId = await grid.UploadAsync(stream, file.FileName, meta);
-                var movieId = await repo.CreateAsync(gridId, resolvedTitle, file.ContentType, file.Length);
-
-                return Results.Ok(new { movieId, gridId = gridId.ToString() });
-            })
-            .DisableAntiforgery();
 
 
             app.UseHttpsRedirection();

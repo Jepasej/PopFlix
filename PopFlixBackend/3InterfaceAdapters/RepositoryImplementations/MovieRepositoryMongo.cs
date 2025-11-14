@@ -11,10 +11,8 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
     /// </summary>
     public class MovieRepositoryMongo : IMovieRepository
     {
-        // CHANGE 1: Reference to the "movies" collection, now strongly typed to Movie
         private readonly IMongoCollection<Movie> _movies;
 
-        // CHANGE 2: Update constructor to resolve collection using the Movie type
         public MovieRepositoryMongo(IMongoDatabase db)
         {
             _movies = db.GetCollection<Movie>("movies");
@@ -43,7 +41,7 @@ namespace PopFlixBackend._3InterfaceAdapters.RepositoryImplementations
             return movie;
         }
 
-        
+        // Fetch a single movies metadata by its Id 
         public async Task<Movie?> Get(string Id)
         {
             return await _movies.Find<Movie>(m => m.Id == Id)

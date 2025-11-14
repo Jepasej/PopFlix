@@ -19,6 +19,7 @@ namespace PopFlixBackend._2Application.DTOs
         {
         }
 
+        // Constructor creates a MovieDTO from a Movie object, used when sending data to the client (Ideally the properties would have been in MovieMetaData)
         public MovieDTO(Movie movie)
         {
             Id = movie.Id;

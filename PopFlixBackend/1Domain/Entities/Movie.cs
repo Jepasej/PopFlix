@@ -15,6 +15,7 @@ namespace PopFlixBackend._1Domain.Entities
 
         public Movie() {}
 
+        // Constructor to create a Movie object from a MovieDTO object
         public Movie(MovieDTO movieDTO)
         {
             Id = movieDTO.Id;
@@ -24,9 +25,9 @@ namespace PopFlixBackend._1Domain.Entities
             lengthBytes = movieDTO.LengthBytes;
             uploadedAt = movieDTO.UploadedAt;
             genre = movieDTO.Genre;
-            year = movieDTO.Year;          
+            year = movieDTO.Year;         
 
-        }        
+        }
 
         // Primary Key for the Movies collection
         [BsonId]
@@ -45,6 +46,8 @@ namespace PopFlixBackend._1Domain.Entities
         // Keeping these from your original entity, assuming they are optional/added later
         public string genre { get; set; } = string.Empty;
         public int year { get; set; }
+
+
 
 
     }
