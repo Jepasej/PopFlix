@@ -75,8 +75,8 @@ Swagger/OpenAPI dokumentation findes i projektets rodmappe som: Swagger doc
 Dokumentationen kan åbnes i enhver Swagger viewer og vises automatisk, når API’et kører.
 
 ## Teknologier anvendt:
-.NET 9 WebAPI
-MongoDB
-GridFS
-Docker Compose
-Postman
+- .NET 9 WebAPI
+- MongoDB
+- GridFS
+- Docker Compose
+- Postman
