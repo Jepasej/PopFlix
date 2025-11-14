@@ -19,6 +19,6 @@ namespace PopFlixBackend._2Application.Interfaces
 
         public Task Add(Movie movie);
         public Task<Movie?> Get(string Id);
-        Task<List<Movie>> GetAll();
+        
     }
 }

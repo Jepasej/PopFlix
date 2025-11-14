@@ -5,9 +5,15 @@ namespace PopFlixBackend._2Application.DTOs
     public class MovieDTO
     {
         public string? Id { get; set; }
+
+        public string? gridId { get; set; }
         public string Title { get; set; }
-        public int Year { get; set; }
+        public string ContentType { get; set; }
+        public long LengthBytes { get; set; }
+        public DateTime UploadedAt { get; set; }        
         public string Genre { get; set; }
+        public int Year { get; set; }
+
 
         public MovieDTO()
         {
@@ -16,9 +22,13 @@ namespace PopFlixBackend._2Application.DTOs
         public MovieDTO(Movie movie)
         {
             Id = movie.Id;
+            gridId = movie.gridId;
             Title = movie.title;
-            Year = movie.year;
+            ContentType = movie.contentType;
+            LengthBytes = movie.lengthBytes;
+            UploadedAt = movie.uploadedAt;            
             Genre = movie.genre;
+            Year = movie.year;
         }
     }
 }
