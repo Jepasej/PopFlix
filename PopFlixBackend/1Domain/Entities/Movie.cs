@@ -18,10 +18,16 @@ namespace PopFlixBackend._1Domain.Entities
         public Movie(MovieDTO movieDTO)
         {
             Id = movieDTO.Id;
+            gridId = movieDTO.gridId;
             title = movieDTO.Title;
-            year = movieDTO.Year;
+            contentType = movieDTO.ContentType;
+            lengthBytes = movieDTO.LengthBytes;
+            uploadedAt = movieDTO.UploadedAt;
             genre = movieDTO.Genre;
-        }
+            year = movieDTO.Year;          
+
+        }        
+
         // Primary Key for the Movies collection
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
