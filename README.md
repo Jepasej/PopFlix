@@ -35,13 +35,13 @@ For at kunne køre projektet skal følgende være installeret:
 
 ### 2. Start Docker-miljøet
 Åbn terminalen i Visual Studio:
-View → Terminal --> powershell åbner 
+View → Terminal → powershell åbner 
 
 Navigér til backend-projektet ved at skrive:
-cd PopFlixBackend --> tryk enter 
+cd PopFlixBackend → tryk enter 
 
 Byg og start containere ved at skrive:
-docker-compose up --build --> tryk enter 
+docker-compose up --build → tryk enter 
 Kontrollér derefter i Docker Desktop, at containerne kører.
 
 ## Test i Postman 
@@ -58,16 +58,16 @@ Lav en POST request: http://localhost:8080/movies/import
 - Gentag processen for alle ønskede filer.
 
 GET: Alle film med metadata:
-Lav en GET request: http://localhost:8080/movies --> tryk SEND 
+Lav en GET request: http://localhost:8080/movies → tryk SEND 
 Returnerer en liste med alle film og deres meteadata, inkl. deres id’er.
 Kopier feltet "Id" fra én af de uploadede film (skal bruges i næste trin) 
 
 GET: Enkelt filmmetadata: 
-Lav en GET request: http://localhost:8080/movies/{id} --> tryk SEND
+Lav en GET request: http://localhost:8080/movies/{id} → tryk SEND
 Returnerer metadata på den film hvis id du har indsat
 
 GET: Stream film: 
-Lav en GET request: http://localhost:8080/movies/{{id}}/stream --> tryk SEND
+Lav en GET request: http://localhost:8080/movies/{{id}}/stream → tryk SEND
 Du bør nu kunne streame den valgte video. 
 
 ## API-dokumentation:
