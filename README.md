@@ -47,7 +47,8 @@ Kontrollér derefter i Docker Desktop, at containerne kører.
 ## Test i Postman 
 POST: Upload film: 
 Lav en POST request: http://localhost:8080/movies/import 
-- Naviger til “Body” og tryk på den 
+- Naviger til “Body” og tryk på den
+- Skift dropdown fra "none" til form-data"
 - Under Key skriver du “file” og ændrer typen til “File” 
 - Under Value: tryk på feltet “New file from local machine” 
 - I popup-vinduet, vælg en fil der skal uploades og tryk på “open”
