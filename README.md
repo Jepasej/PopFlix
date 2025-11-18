@@ -23,6 +23,8 @@ For at kunne køre projektet skal følgende være installeret og kørende:
 - Visual Studio 2022 (med .NET 9 SDK)  
 - Docker Desktop  
 - Postman
+  
+Sørg derudover for at have følgende til rådighed: 
 - Videofiler (under 1GB) til test  
 
 ## Opsætning og kørsel
