@@ -34,15 +34,15 @@ For at kunne køre projektet skal følgende være installeret:
 4. Projektet åbner i Visual Studio → tryk **Clone**
 
 ### 2. Start Docker-miljøet
-Åbn terminalen i Visual Studio:
+- Åbn terminalen i Visual Studio:
 View → Terminal → powershell åbner 
 
-Navigér til backend-projektet ved at skrive:
+- Navigér til backend-projektet ved at skrive:
 cd PopFlixBackend → tryk enter 
 
-Byg og start containere ved at skrive:
-docker-compose up --build → tryk enter 
-Kontrollér derefter i Docker Desktop, at containerne kører.
+- Byg og start containere ved at skrive:
+docker-compose up --build → tryk enter. 
+- Kontrollér derefter i Docker Desktop, at containerne kører.
 
 ## Test i Postman 
 POST: Upload film: 
