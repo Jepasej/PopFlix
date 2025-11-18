@@ -34,6 +34,7 @@ For at kunne køre projektet skal følgende være installeret:
 4. Projektet åbner i Visual Studio → tryk **Clone**
 
 ### 2. Start Docker-miljøet
+- Inden du går i gang: Vær sikker på at Docker Desktop er åbnet og kører 
 - Åbn terminalen i Visual Studio:
 View → Terminal → powershell åbner 
 
