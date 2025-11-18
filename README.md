@@ -19,10 +19,11 @@ Formålet er at demonstrere centrale backend-teknikker som:
 - Dokumentation med Swagger/OpenAPI  
 
 ## Forudsætninger
-For at kunne køre projektet skal følgende være installeret:
+For at kunne køre projektet skal følgende være installeret og kørende :
 - Visual Studio 2022 (med .NET 9 SDK)  
 - Docker Desktop  
-- Postman  
+- Postman
+#
 - Videofiler (under 1GB) til test  
 
 ## Opsætning og kørsel
@@ -34,7 +35,7 @@ For at kunne køre projektet skal følgende være installeret:
 4. Projektet åbner i Visual Studio → tryk **Clone**
 
 ### 2. Start Docker-miljøet
-- Inden du går i gang: Vær sikker på at Docker Desktop er åbnet og kører 
+- Inden du går i gang: Vær sikker på at Docker Desktop er kørende
 - Åbn terminalen i Visual Studio:
 View → Terminal → powershell åbner 
 
